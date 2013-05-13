@@ -1,160 +1,162 @@
 head
-    title Control Panel
-    link(rel='stylesheet', type='text/css', href='style.css')
-    script(src='/jquery.min.js')
-    script(src='/bootstrap.min.js')
-    script(src="/socket.io/socket.io.js")
-    script(src='linkify.js')
-    script(src="/moment.min.js")
-    script(src='app.js')
-    style(type='text/css')
-    meta(charset='utf-8')
-  body
-    .modal
-      .topbar
-        .panel1
-          span.servername #{server.serverName}
-          .memory
-            | Memory  
-            - if (javaRam > 1000)
-              span.used #{(javaRam / 1000).toFixed(2)}G
-            - else
-              span.used #{javaRam.toFixed(0)}M
-            |  / 
-            - if (javaTotal > 1000)
-              span.total #{(javaTotal / 1000).toFixed(0)}G
-            - else
-              span.total #{javaTotal.toFixed(0)}M
-        .panel2
-          img.icon(src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OEUwRjVDOTBCQjUwMTFFMjlGMkFCMDQ3NTVDMTU3RDYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OEUwRjVDOTFCQjUwMTFFMjlGMkFCMDQ3NTVDMTU3RDYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4RTBGNUM4RUJCNTAxMUUyOUYyQUIwNDc1NUMxNTdENiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4RTBGNUM4RkJCNTAxMUUyOUYyQUIwNDc1NUMxNTdENiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsCNes0AAACLSURBVHjaYmxtbWUAAmMgvgfE7xkwAViOBUgIAvFuqEJXNMXGULmzTFCJTiRBQTRFIH4FE1QQpHAWkqQLkqJ0kIksSNakQ+k0qCKYGMgABiY0h89CYoPcvBrGQVaohGTSHjQ+XCHILauQ3OSK5OaZIAXIwWOM7CY0N4MVgoLnLFTBLDQ3wxSfBQgwANmkIokhNxJKAAAAAElFTkSuQmCC')
-        .panel3
-          img.icon(src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAKCAYAAABi8KSDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MEMwNjdDMDRCQjUwMTFFMjgxMTM5RkY3Rjk2ODU5NjAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MEMwNjdDMDVCQjUwMTFFMjgxMTM5RkY3Rjk2ODU5NjAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowQzA2N0MwMkJCNTAxMUUyODExMzlGRjdGOTY4NTk2MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowQzA2N0MwM0JCNTAxMUUyODExMzlGRjdGOTY4NTk2MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnjtF14AAACpSURBVHjaYmxqamLAAxYC8SwgPgrisCBJOANxIBCLIYm5AXEsEC8H4hKQYkYgngHEaXhsCAHi6yDF6VCFt4G4DIivAfEfqKJtQHwPiPOA+A5IcRYQ/wViTyC+i2ZiFBCfg3GYgFgdiG9hUciArBCm+DUQSwMxFwMBAFK8Hoj5gHg2EHMTUtwAdQbIfS+gzkHG22CKQR58C8TWQNwMxP5ArIRm4FcYAyDAAG6dIa8UpdQ7AAAAAElFTkSuQmCC')
-        .panel4
-          span.playerstitle Players
-          .players
-            span.amt #{playerCount}
-            | /
-            span.pltotal #{server.maxPlayers}
-      //
-         end of top bar 
-      .row2
-        .serverlog
-          pre.serverlogpre 
-            - each log in console
-              .log !{log}
-                        
-        .playerlist
-          ul
-            - each player in players
-              li.player(id="#{player}")
-                img.head(src='http://i.fishbans.com/helm/#{player}/24')
-                .playername #{player}
-              li.playercontrol(id="#{player}")
-                a(href='#') make operator
-                br
-                a(href='#') kick from server
-                br
-                a(href='#') ban from server
-      //
-         end of row2 
-      .row3
-        .inputarrbox
-          .inputarr >
-        input.commandentry(type='text')
-        button.send Send
-    script()
-      //Click player element
-      $('.player').click(function(e) {
-        $('.playercontrol#'+ this.id).slideToggle();
-      });
+  title Control Panel
+  link(rel='stylesheet', type='text/css', href='style.css')
+  script(src='/jquery.min.js')
+  script(src='/bootstrap.min.js')
+  script(src="/socket.io/socket.io.js")
+  script(src='linkify.js')
+  script(src="/moment.min.js")
+  script(src='app.js')
+  style(type='text/css')
+  meta(charset='utf-8')
+body
+  .modal
+    .topbar
+      .panel1
+        span.servername #{server.serverName}
+        .memory
+          | Memory  
+          - if (javaRam > 1000)
+            span.used #{(javaRam / 1000).toFixed(2)}G
+          - else
+            span.used #{javaRam.toFixed(0)}M
+          |  / 
+          - if (javaTotal > 1000)
+            span.total #{(javaTotal / 1000).toFixed(0)}G
+          - else
+            span.total #{javaTotal.toFixed(0)}M
+      a.panel2(href="/settings")
+        img.icon(src='images/gear.png', style="width:15px; height:15px; margin-top: 22px; margin-left: 18px;")
+      .panel3
+        img.icon(src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OEUwRjVDOTBCQjUwMTFFMjlGMkFCMDQ3NTVDMTU3RDYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OEUwRjVDOTFCQjUwMTFFMjlGMkFCMDQ3NTVDMTU3RDYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4RTBGNUM4RUJCNTAxMUUyOUYyQUIwNDc1NUMxNTdENiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4RTBGNUM4RkJCNTAxMUUyOUYyQUIwNDc1NUMxNTdENiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsCNes0AAACLSURBVHjaYmxtbWUAAmMgvgfE7xkwAViOBUgIAvFuqEJXNMXGULmzTFCJTiRBQTRFIH4FE1QQpHAWkqQLkqJ0kIksSNakQ+k0qCKYGMgABiY0h89CYoPcvBrGQVaohGTSHjQ+XCHILauQ3OSK5OaZIAXIwWOM7CY0N4MVgoLnLFTBLDQ3wxSfBQgwANmkIokhNxJKAAAAAElFTkSuQmCC')
+      .panel4
+        img.icon(src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAKCAYAAABi8KSDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MEMwNjdDMDRCQjUwMTFFMjgxMTM5RkY3Rjk2ODU5NjAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MEMwNjdDMDVCQjUwMTFFMjgxMTM5RkY3Rjk2ODU5NjAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowQzA2N0MwMkJCNTAxMUUyODExMzlGRjdGOTY4NTk2MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowQzA2N0MwM0JCNTAxMUUyODExMzlGRjdGOTY4NTk2MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnjtF14AAACpSURBVHjaYmxqamLAAxYC8SwgPgrisCBJOANxIBCLIYm5AXEsEC8H4hKQYkYgngHEaXhsCAHi6yDF6VCFt4G4DIivAfEfqKJtQHwPiPOA+A5IcRYQ/wViTyC+i2ZiFBCfg3GYgFgdiG9hUciArBCm+DUQSwMxFwMBAFK8Hoj5gHg2EHMTUtwAdQbIfS+gzkHG22CKQR58C8TWQNwMxP5ArIRm4FcYAyDAAG6dIa8UpdQ7AAAAAElFTkSuQmCC')
+      .panel5
+        span.playerstitle Players
+        .players
+          span.amt #{playerCount}
+          | /
+          span.pltotal #{server.maxPlayers}
+    //
+       end of top bar 
+    .row2
+      .serverlog
+        pre.serverlogpre 
+          - each log in console
+            .log !{log}
+                      
+      .playerlist
+        ul
+          - each player in players
+            li.player(id="#{player}")
+              img.head(src='http://i.fishbans.com/helm/#{player}/24')
+              .playername #{player}
+            li.playercontrol(id="#{player}")
+              a(href='#') make operator
+              br
+              a(href='#') kick from server
+              br
+              a(href='#') ban from server
+    //
+       end of row2 
+    .row3
+      .inputarrbox
+        .inputarr >
+      input.commandentry(type='text')
+      button.send Send
+  script()
+    //Click player element
+    $('.player').click(function(e) {
+      $('.playercontrol#'+ this.id).slideToggle();
+    });
+    
+    var socket = io.connect()
+    
+    socket.on('system', function(data) {
+      // console.log('system', data);
+      var used = data.data[0];
+      var java = data.data[1];
+      var total = data.data[2];
       
-      var socket = io.connect()
-      
-      socket.on('system', function(data) {
-        // console.log('system', data);
-        var used = data.data[0];
-        var java = data.data[1];
-        var total = data.data[2];
-        
-        if (used > 1000) {
-          $('.used').text((used / 1000).toFixed(2) + "G");
+      if (used > 1000) {
+        $('.used').text((used / 1000).toFixed(2) + "G");
+      }
+      else {
+        $('.used').text(used.toFixed(0) + "M");
+      }        
+      // $('#load0').text(data.data[3][0].toFixed(2) + ' -- ');
+      // $('#load1').text(data.data[3][1].toFixed(2) + ' -- ');
+      // $('#load2').text(data.data[3][2].toFixed(2));
+    });
+    
+    socket.on('console', function(data) {
+      //console.log(data);
+      consoleMessage(data.data);
+    });
+    
+    socket.on('player', function(data) {
+      //console.log(data);
+      addOrRemovePlayer(data.data);
+    });
+    
+    function consoleMessage(data) {
+      var message = "";
+      data.map(function(chunk) {
+        if (chunk.foreground && chunk.foreground != 'white') {
+          message += "<font color='" + chunk.foreground + "'>"
+          message += chunk.text;
+          message += "</font>";
         }
         else {
-          $('.used').text(used.toFixed(0) + "M");
-        }        
-        // $('#load0').text(data.data[3][0].toFixed(2) + ' -- ');
-        // $('#load1').text(data.data[3][1].toFixed(2) + ' -- ');
-        // $('#load2').text(data.data[3][2].toFixed(2));
-      });
-      
-      socket.on('console', function(data) {
-        //console.log(data);
-        consoleMessage(data.data);
-      });
-      
-      socket.on('player', function(data) {
-        //console.log(data);
-        addOrRemovePlayer(data.data);
-      });
-      
-      function consoleMessage(data) {
-        var message = "";
-        data.map(function(chunk) {
-          if (chunk.foreground && chunk.foreground != 'white') {
-            message += "<font color='" + chunk.foreground + "'>"
-            message += chunk.text;
-            message += "</font>";
-          }
-          else {
-            message += chunk.text;
-          }
-        });
-        // console.log(message);
-        message = moment(message.substr(0, 20)).format("h:mm:ssa") + " " + message.substr(20);
-        
-        $('.serverlogpre').append(linkify('<div class="log">' + message + '</div>'));
-        $(".serverlogpre").scrollTop($(".serverlogpre")[0].scrollHeight);
-      };
-      
-      function addOrRemovePlayer(data) {
-        var playerTag = $('.player#' + data.player);
-        
-        if (data.action == 'connected') {
-          if (playerTag.length == 0) {
-            $('.playerlist > ul').append('<li id="' + data.player + '" class="player"><img src="http://i.fishbans.com/helm/' + data.player + '/24" class="head"><div class="playername">' + data.player + '</div></li>')
-            $('.playerlist > ul').append('<li id="' + data.player + '" class="playercontrol"><a href="#">make operator</a><br><a href="#">kick from server</a><br><a href="#">ban from server</a></li>');
-            $('.player#' + data.player).click(function() {
-              $('.playercontrol#'+ this.id).slideToggle();
-            });
-            // $('.players').append('<li id="' + data.player + '" class="player" style="width:50%;"><div class="row-fluid"><div style="height: 24px;" class="span2"><img width="24px" height="24px" src="http://s3.amazonaws.com/MinecraftSkins/' + data.player + '.png" onerror="this.src=\'/images/Char.png\';" onload="renderSkin(this);" class="playerHead"></div><div class="span10"><a> ' + data.player + '</a></div></div></li>');
-            // renderSkin($('.player#' + data.player).find('.playerHead')[0])
-          }
-          else {
-            console.log('found a tag already?', playerTag);
-          }
+          message += chunk.text;
         }
-        else if (data.action == 'disconnected') {
-          if (playerTag.length > 0) {
-            // console.log('removing tag for ' + data.player);
-            $('.player#' + data.player).remove();
-            $('.playercontrol#' + data.player).remove();
-          }
-          else {
-            console.log('no player tag found?', playerTag);
-          }
+      });
+      // console.log(message);
+      message = moment(message.substr(0, 20)).format("h:mm:ssa") + " " + message.substr(20);
+      
+      $('.serverlogpre').append(linkify('<div class="log">' + message + '</div>'));
+      $(".serverlogpre").scrollTop($(".serverlogpre")[0].scrollHeight);
+    };
+    
+    function addOrRemovePlayer(data) {
+      var playerTag = $('.player#' + data.player);
+      
+      if (data.action == 'connected') {
+        if (playerTag.length == 0) {
+          $('.playerlist > ul').append('<li id="' + data.player + '" class="player"><img src="http://i.fishbans.com/helm/' + data.player + '/24" class="head"><div class="playername">' + data.player + '</div></li>')
+          $('.playerlist > ul').append('<li id="' + data.player + '" class="playercontrol"><a href="#">make operator</a><br><a href="#">kick from server</a><br><a href="#">ban from server</a></li>');
+          $('.player#' + data.player).click(function() {
+            $('.playercontrol#'+ this.id).slideToggle();
+          });
+          // $('.players').append('<li id="' + data.player + '" class="player" style="width:50%;"><div class="row-fluid"><div style="height: 24px;" class="span2"><img width="24px" height="24px" src="http://s3.amazonaws.com/MinecraftSkins/' + data.player + '.png" onerror="this.src=\'/images/Char.png\';" onload="renderSkin(this);" class="playerHead"></div><div class="span10"><a> ' + data.player + '</a></div></div></li>');
+          // renderSkin($('.player#' + data.player).find('.playerHead')[0])
         }
         else {
-          console.log('improper action: ' + data.action, playerTag);
+          console.log('found a tag already?', playerTag);
         }
-        
-        $('#playerCount').text($('.player').length);
-      };
+      }
+      else if (data.action == 'disconnected') {
+        if (playerTag.length > 0) {
+          // console.log('removing tag for ' + data.player);
+          $('.player#' + data.player).remove();
+          $('.playercontrol#' + data.player).remove();
+        }
+        else {
+          console.log('no player tag found?', playerTag);
+        }
+      }
+      else {
+        console.log('improper action: ' + data.action, playerTag);
+      }
       
-      $(document).ready(function(){      
-        $('.serverlogpre').html(linkify($('.serverlogpre').html()));
-        $(".serverlogpre").scrollTop($(".serverlogpre")[0].scrollHeight);
-      });
-      
-      $(window).resize(function() {
-        $(".serverlogpre").scrollTop($(".serverlogpre")[0].scrollHeight);
-      });      
+      $('#playerCount').text($('.player').length);
+    };
+    
+    $(document).ready(function(){      
+      $('.serverlogpre').html(linkify($('.serverlogpre').html()));
+      $(".serverlogpre").scrollTop($(".serverlogpre")[0].scrollHeight);
+    });
+    
+    $(window).resize(function() {
+      $(".serverlogpre").scrollTop($(".serverlogpre")[0].scrollHeight);
+    });      

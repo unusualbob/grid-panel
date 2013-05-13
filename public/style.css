@@ -12,7 +12,7 @@ html {
   margin-right: auto;
 }
 .panel1 {
-  width: 600px;
+  width: 550px;
   border-right: 1px solid #ccc;
   height: 60px;
   padding-right: 4px;
@@ -45,12 +45,12 @@ html {
     text-shadow: 0px 1px 0px #fff;
     margin-right: 10px;
 }
-.panel2 {
+.panel2  {
   width: 50px;
   height: 60px;
   float: left;
   border-right: 1px solid #ccc;
-    border-top: 1px solid #fff;
+  border-top: 1px solid #fff;
 }
 .panel3 {
   width: 50px;
@@ -60,6 +60,13 @@ html {
     border-top: 1px solid #fff;
 }
 .panel4 {
+  width: 50px;
+  height: 60px;
+  float: left;
+  border-right: 1px solid #ccc;
+    border-top: 1px solid #fff;
+}
+.panel5 {
   width: 192px;
   height: 60px;
   float: right;

@@ -20,6 +20,7 @@ var JSONAPI = new jsonAPI({
 
 var app = express();
 var mainEmitter = new events.EventEmitter;
+mainEmitter.setMaxListeners(100);
 var currentPlayers = [];
 var server = app.listen(config.App.port);
 var io = require('socket.io').listen(server);
@@ -33,18 +34,29 @@ app.configure(function(){
 });
 
 io.on('connection', function(socket) {
-  mainEmitter.on('console', function(data) {
-    // console.log('send socket console data');
+  // console.log('socket connected');
+  
+  function emitConsole(data) {
     socket.emit('console', {data: data});
-  });
-  mainEmitter.on('player', function(data) {
-    // console.log('send socket player data');
+  }
+  function emitPlayer(data) {
     socket.emit('player', {data: data});
-  });
-  mainEmitter.on('system', function(data) {
-    // console.log('send socket system data');
+  }
+  function emitSystem(data) {
     socket.emit('system', {data: data});
+  }
+  
+  mainEmitter.on('console', emitConsole);
+  mainEmitter.on('player', emitPlayer);
+  mainEmitter.on('system', emitSystem);
+  
+  socket.on('disconnect', function() {
+    // console.log('socket closed, removing listeners');
+    mainEmitter.removeListener('console', emitConsole);
+    mainEmitter.removeListener('player', emitPlayer);
+    mainEmitter.removeListener('system', emitSystem);
   });
+    
 });
 
 dataStream();
@@ -162,7 +174,32 @@ app.get('/settings', Auth, function(req, res) {
     res.render('settings',{username: username});
   }
   else {
-    res.send(403);
+    res.send(500);
+  }
+});
+
+app.post('/password', Auth, function(req, res) {
+  if (req.param('password','') != '' && req.param('password','') === req.param('passwordAgain','')) {
+    var parts = req.headers.authorization.split(' ');
+    var scheme = parts[0];
+    
+    if (scheme === 'Basic') {
+      var authBuffer = new Buffer(parts[1], 'base64').toString().split(':');
+      var username = authBuffer[0];
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(req.param('password',''), salt);
+      userDB.run("UPDATE users SET password = ?, salt = ? WHERE username = ?", [hash, salt, username], function(err) {
+        if (err) {
+          res.send({error: err});
+        }
+        else {
+          res.redirect("/");
+        }
+      });
+    }
+    else {
+      res.send(500);
+    }
   }
 });
 

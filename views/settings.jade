@@ -1,0 +1,41 @@
+head
+  meta(charset='utf-8')
+  title Control Panel
+  script(src='jquery.min.js')
+  link(rel='stylesheet', type='text/css', href='bootstrap.min.css')
+  style()
+    .error {
+      color: red;
+    }
+body
+  .row(style="margin-left:auto; margin-right:auto; width:50%")
+    a.btn(href="/") < Back
+    form(action='/password', method='POST', style="width: 50%; margin: 0 auto;")
+      h3 Change password
+      label(for="password") New Password for '#{username}'
+      input#password(type="password", name="password")
+      label(for="passwordAgain") Again
+      input#passwordAgain(type="password", name="passwordAgain")
+      br
+      input.btn#submit(type='submit', value='Change Password') Change Password
+  script()
+    $("#submit").click(function(){
+      $(".error").hide();
+      var hasError = false;
+      var passwordVal = $("#password").val();
+      var checkVal = $("#passwordAgain").val();
+      
+      if (passwordVal == '') {
+        $("#submit").after('<span class="error">  Please enter a password.</span>');
+        hasError = true;
+      } else if (checkVal == '') {
+        $("#submit").after('<span class="error">  Please re-enter your password.</span>');
+        hasError = true;
+      } else if (passwordVal != checkVal ) {
+        $("#submit").after('<span class="error">  Passwords do not match.</span>');
+        hasError = true;
+      }
+      if (hasError == true) {
+        return false;
+      }
+    });
