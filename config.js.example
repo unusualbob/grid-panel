@@ -1,0 +1,12 @@
+module.exports = {
+    JSONAPI: { //This information match that in plugins/JSONAPI/config.yml
+        hostname: "localhost" //If this is not localhost, make sure that your JSONAPI config allows connections from this IP
+      , port: 20059
+      , username: ""
+      , password: ""
+      , salt: ""
+    }
+  , App : {
+      port: 8888 //This should be greater than 1024 unless you are running as sudo (which I do not recommend)
+    }
+};

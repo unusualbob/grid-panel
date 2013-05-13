@@ -1,0 +1,19 @@
+{
+  "name": "grid-panel",
+  "version": "0.0.1",
+  "description": "Minecraft Control Panel",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~3.1.0",
+    "async": "~0.2.6",
+    "sqlite3": "~2.1.7",
+    "ansiparse": "~0.0.5-1",
+    "bcrypt": "~0.7.5",
+    "jade": "~0.28.2",
+    "socket.io": "~0.9.14",
+    "moment": "~2.0.0"
+  },
+  "repository": "",
+  "author": "unusualbob",
+  "license": "BSD"
+}
